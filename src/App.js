@@ -1,8 +1,8 @@
-import Home from './Home'
-import Game from './Game';
-import ErrorPage from './ErrorPage';
-import Product from './Products';
-import ProductDetail from './ProductDetail';
+import Home from './home/Home'
+import Game from './game/Game';
+import ErrorPage from './error-page/ErrorPage';
+import Product from './products/Products';
+import ProductDetail from './products/ProductDetail';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 export default function App(){
@@ -10,7 +10,7 @@ export default function App(){
     <BrowserRouter>
       <Routes>
         <Route path="/home" element={<Home/>} />
-        <Route path="/tic-tac-toe" element={<Game/>}/>
+        <Route path="/game" element={<Game/>}/>
         <Route path="/error-page" element={<ErrorPage />} />
         <Route path="/products" element={<Product/>} />
         <Route path="/products/:id" element={<ProductDetail/>} />

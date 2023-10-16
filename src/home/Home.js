@@ -11,7 +11,7 @@ export default function Home(){
         <>
             <div>Welcome to Home Page</div>
             <br/>
-            <button className="btn btn-primary" onClick={() => navigateTo("/tic-tac-toe")}>Click here to play</button>
+            <button className="btn btn-primary" onClick={() => navigateTo("/game")}>Click here to play</button>
             <br/><br/>
             <button className="btn btn-primary" onClick={() => navigateTo("/products")}>Click here to see Products</button>
         </>

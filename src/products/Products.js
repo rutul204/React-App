@@ -1,11 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useFetch from "./useFetch";
+import useFetch from "../useFetch";
+import { useDispatch, useSelector } from "react-redux";
+import { selectFilterText, selectShowImage, toggleImage, updateFilterText } from "./productSlice";
 
 export default function Product(){
-    const [filterText, setFilterText] = useState('');
-    const [showImage, setShowImage] = useState(true);
+    const dispatch = useDispatch();
+    // const [filterText, setFilterText] = useState('');
+    const filterText = useSelector(selectFilterText);
+    // const [showImage, setShowImage] = useState(true);
+    const showImage = useSelector(selectShowImage);
     // const [products, setProducts] = useState([]);
     const res = useFetch('/data/products.json');
     // const [filteredProducts, setFilteredProducts] = useState();
@@ -24,7 +29,8 @@ export default function Product(){
     // }, []);
 
     function handleFilter(value){
-        setFilterText(value);
+        // setFilterText(value);
+        dispatch(updateFilterText(value));
         // applyFilter(value);
     }
 
@@ -40,13 +46,12 @@ export default function Product(){
         return products.filter(p => p.productName.toLocaleLowerCase().includes(value));
     }
 
-    function toggleImage(){
-        setShowImage(!showImage);
-    }
+    // function toggleImage(){
+    //     setShowImage(!showImage);
+    // }
 
     function gotoDetailsPage(id){
         let index = products.findIndex(p => p.productId == id);
-        console.log(index);
         let product = products[index];
         navigate('/products/'+id, {state : product});
     }
@@ -90,7 +95,7 @@ export default function Product(){
                         <thead>
                             <tr>
                                 <td>
-                                    <button className="btn btn-primary" onClick={toggleImage}>
+                                    <button className="btn btn-primary" onClick={() => dispatch(toggleImage())}>
                                         {showImage ? 'Hide' : 'Show'} Image
                                     </button>
                                 </td>

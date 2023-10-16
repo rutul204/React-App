@@ -1,5 +1,5 @@
 import Square from './Square';
-import {calculateWinner} from './Utilities';
+import {calculateWinner} from '../Utilities';
 
 export default function Board({squares, xIsNext, currentMove, onPlay}) {
     const winner = calculateWinner(squares);

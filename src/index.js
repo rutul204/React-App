@@ -2,17 +2,16 @@ import React, { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./styles.css";
-
 import App from "./App";
-import Game from "./Game";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./store/store";
 
 const root = createRoot(document.getElementById("root"));
 root.render(
-  // <BrowserRouter>
-  //   <Routes>
-  //     <Route path="/" element={<Game />}/>
-  //   </Routes>
-  // </BrowserRouter>
-  <App />
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>
+  
 );
