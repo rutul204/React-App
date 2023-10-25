@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useFetch from "../useFetch";
 import { useDispatch, useSelector } from "react-redux";
-import { selectFilterText, selectShowImage, toggleImage, updateFilterText } from "./productSlice";
+import { fetchProducts, resetProducts, selectAllProducts, selectFilterText, selectProductStatus, selectShowImage, toggleImage, updateFilterText } from "./productSlice";
 
 export default function Product(){
     const dispatch = useDispatch();
@@ -12,10 +12,22 @@ export default function Product(){
     // const [showImage, setShowImage] = useState(true);
     const showImage = useSelector(selectShowImage);
     // const [products, setProducts] = useState([]);
-    const res = useFetch('/data/products.json');
+    // const res = useFetch('/data/products.json');
     // const [filteredProducts, setFilteredProducts] = useState();
+    const productStatus = useSelector(selectProductStatus);
+    const products = useSelector(selectAllProducts);
     const navigate = useNavigate();
-    const products = res.data;
+    // const products = res.data;
+
+    useEffect(() => {
+        const abortController = new AbortController();
+        console.log(productStatus);
+        if(productStatus === 'idle'){
+            dispatch(fetchProducts());
+        }
+        // return () => dispatch(resetProducts());
+        return abortController.abort();
+    }, [productStatus]);
     
     // useEffect(() => {
     //     setTimeout(() => {
@@ -56,7 +68,7 @@ export default function Product(){
         navigate('/products/'+id, {state : product});
     }
 
-    if(res?.loading){
+    if(productStatus === 'loading'){
         return (
             <div className="d-flex justify-content-center">
                 <div className="spinner-border" role="status">
